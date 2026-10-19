@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bonebase (itch page preview)</title>
+<style>
+body{margin:0;background:#141418;color:#ececf0;font:16px/1.6 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+main{max-width:960px;margin:0 auto;padding:24px;background:#1e1e24}
+img{display:block;max-width:100%;height:auto;margin:16px 0;image-rendering:pixelated}
+h2{color:#ebdc78;margin:32px 0 8px}
+a{color:#ebdc78}
+hr{border:0;border-top:1px solid #3a3a46;margin:32px 0}
+code{background:#141418;padding:1px 5px;border-radius:3px}
+</style>
+</head>
+<body>
+<main>
+<img src="img/cover.png" alt="Bonebase: rig it, skin it, animate it. A pixel art character base with its bones drawn over it">
+
+<p><strong>Bonebase is an extension for Aseprite.</strong> You build a 2D skeleton, cover it with a skin you shape by hand, animate it with live IK, and export it to your sprite as one layer per part. Then you draw your character on top, frame by frame, over a body that already moves right.</p>
+
+<img src="gifs/editor.gif" alt="The Bonebase viewport playing a march cycle: the skin, its bones, the hand and foot dummies and the ground line">
+
+<hr>
+
+<h2>Rig it</h2>
+
+<img src="gifs/feature-templates.gif" alt="Picking the Humanoid, Chibi, Quadruped, Winged and Serpent templates one after another">
+
+<ul>
+<li>Start from a template (Humanoid, Chibi, Quadruped, Winged, Serpent) or draw bones from scratch.</li>
+<li>Mirror mode builds the left side while you work on the right one. Symmetrize pairs a rig you made by hand.</li>
+<li>Bones can hang connected or loose: a tail, a cape, a floating head.</li>
+</ul>
+
+<h2>Skin it</h2>
+
+<img src="gifs/feature-rig.gif" alt="Drawing bones with mirror on, making the head bigger with the Radius tool and pushing out a belly and a calf with the Bulge tool">
+
+<ul>
+<li>The skin wraps the bones like a modelling envelope. Set the radius at each joint, and push bulges out on either side of a bone for a belly, a calf or a muscle.</li>
+<li>Bones belong to parts (arm, leg, torso...). Each part becomes one layer, with its own colour and a smooth blend where its bones meet.</li>
+<li>Pixel-perfect outline, thick outline, or none.</li>
+</ul>
+
+<h2>Animate it</h2>
+
+<img src="gifs/feature-ik.gif" alt="Dragging a hand and a foot with live IK, flipping the knee with its pole dummy, moving the hips while the feet stay planted, and a foot stopping at the ground line">
+
+<ul>
+<li>Pose mode with auto-key: drag a bone and the key is written on the current frame.</li>
+<li>Live two-bone IK on arms and legs. Drag the hand or foot dummy, pick the elbow or knee side with its pole. Feet stay planted when the hips move, between keys too. Stretch is optional and capped.</li>
+<li>A ground line that feet stop at.</li>
+<li>Channels for rotation, offset and length (squash and stretch), and per part draw order and visibility.</li>
+<li>Eases: Linear, Ease, Ease in, Ease out, Back, Bounce, Step.</li>
+</ul>
+
+<img src="gifs/feature-dopesheet.gif" alt="Playing the animation, then picking keys in the dope sheet with click, Shift+click and a box, dragging them, scaling their timing with Alt+drag and undoing">
+
+<ul>
+<li>A dope sheet with a row per bone, IK controller and part. Pick keys, drag them, scale their timing, copy and paste them.</li>
+<li>Copy a pose and paste it mirrored: a left step becomes a right step.</li>
+</ul>
+
+<img src="gifs/feature-clips.gif" alt="Duplicating a clip and renaming it, switching clips, then turning on ping-pong, a frame hold and onion skin while it plays">
+
+<ul>
+<li>Several clips per rig (idle, walk, attack...), each with its own frames and timing.</li>
+<li>Per-frame holds, ping-pong, reverse keys, onion skin.</li>
+</ul>
+
+<h2>Draw over it</h2>
+
+<img src="gifs/skin.gif" alt="The exported skin alone, marching in place: what lands in your sprite">
+
+<ul>
+<li><strong>Export sprite</strong> adds a <code>Bonebase</code> group at the bottom of your layers: one locked layer per part, one frame per animation frame, a tag per clip.</li>
+<li>Re-export any time. Only Bonebase's own layers are rebuilt; your drawing is never touched.</li>
+<li>The rig is saved inside the sprite. Open Bonebase on it again and everything comes back.</li>
+</ul>
+
+<img src="img/window.png" alt="The Bonebase window in Pose mode: the Animation tab, the viewport with IK dummies and the dope sheet">
+
+<hr>
+
+<h2>Details</h2>
+
+<ul>
+<li>One window inside Aseprite, with undo for every change and a shortcut list (press <code>?</code>).</li>
+<li>Aseprite 1.3 or newer, RGB sprites. Windows, macOS and Linux.</li>
+<li>Per-frame draw order uses Aseprite's cel z-index (1.3 and newer).</li>
+</ul>
+
+<h2>Install</h2>
+
+<ol>
+<li>Download <code>Bonebase-1.0.0.aseprite-extension</code>.</li>
+<li>Double-click it, or in Aseprite: Edit &gt; Preferences &gt; Extensions &gt; Add Extension.</li>
+<li>Open it from File &gt; Scripts &gt; Bonebase.</li>
+</ol>
+
+<h2>License</h2>
+
+<p>One purchase is for one person, on every computer they use.</p>
+
+<ul>
+<li>Use it in any project: personal, commercial, client work, games and assets you sell.</li>
+<li>What you draw and export with it is yours. No attribution required.</li>
+<li>Every update in the 1.x line is included.</li>
+<li>Do not share, resell or redistribute the extension. A studio buys one per artist.</li>
+</ul>
+
+<hr>
+
+<h2>More Aseprite extensions</h2>
+
+<ul>
+<li><a href="https://icemaan.itch.io/fastfx-full-particle-system-for-aseprite">FastFX Full</a>: multi-emitter particle FX, live preview and bake.</li>
+<li><a href="https://icemaan.itch.io/vesprite-vector-drawing-for-pixel-art-inside-aseprite">VeSprite</a>: vector drawing for pixel art inside Aseprite.</li>
+<li><a href="https://icemaan.itch.io/spaghetti-node-based-textures-for-aseprite">Spaghetti</a>: node-based textures for Aseprite.</li>
+<li><a href="https://icemaan.itch.io/ghostframe-aseprite-extension">GhostFrames</a>: RIFE frame interpolation for inbetweens.</li>
+</ul>
+
+</main>
+</body>
+</html>
