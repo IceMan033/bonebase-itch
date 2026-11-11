@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bonebase (itch page preview)</title>
+<style>
+body{margin:0;background:#141418;color:#ececf0;font:16px/1.6 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+main{max-width:960px;margin:0 auto;padding:24px;background:#1e1e24}
+img{display:block;max-width:100%;height:auto;margin:16px 0;image-rendering:pixelated}
+h2{color:#ebdc78;margin:32px 0 8px}
+a{color:#ebdc78}
+hr{border:0;border-top:1px solid #3a3a46;margin:32px 0}
+code{background:#141418;padding:1px 5px;border-radius:3px}
+</style>
+</head>
+<body>
+<main>
+<p><strong>Bonebase 2.9 is out!</strong> Last devlog ended with "drawings on bones" in the roadmap. That turned into painting the whole character, which turned into views, which turned into 3D rigs, which is how I learned I can't keep a roadmap short either. Here's everything since 2.2.</p>
+
+<p>Short version for anyone new: you build a skeleton, give it a rough body, animate it with live IK, and export it to Aseprite as layers. Until now you drew over that rough body on every frame. Now you can paint it once.</p>
+
+<hr>
+
+<h2>Paint sheets</h2>
+
+<img src="../guide/paint.gif" alt="New view lays the rig flat on a sheet, the sheet opens in Aseprite, and painting a duelist with a plumed hat, coat, cape and rapier updates the animated rig live">
+
+<p>The idea comes from Astortion's devlog: every pixel of the animation points to a spot on one texture, so editing that texture changes every frame at once. There the map is painted by hand. Here the rig already knows which bone owns each pixel, so you get it for free.</p>
+
+<ul>
+<li>New view in the Paint tab opens a sheet in Aseprite with each group laid out flat. Paint it with your usual tools and the animation updates while you draw.</li>
+<li>Painting outside the skin adds to it and erasing cuts it, so a hat, a sword or a cape is just more paint.</li>
+<li>Stretching a bone stretches the body, not the sword in its hand.</li>
+<li>While you paint, the big window steps aside for a small preview, so you can see Aseprite.</li>
+<li>Outline can be turned off for painted groups, for people who draw their own lines.</li>
+</ul>
+
+<h2>Pixel lock and On twos</h2>
+
+<img src="../guide/pixellock.gif" alt="A slow sway with Pixel lock off, where the outline shimmers, and at 3, where it moves in clean steps">
+
+<p>Rotating pixel art redraws every pixel of the bone and everything hanging off it, so a chest that turns two degrees makes the head shimmer. I tried eight ways of fixing it and kept the one that won on my tests: <strong>Pixel lock</strong> turns each bone in steps that move its tip a few pixels and only takes the next step when it's well past the middle. On my flicker test it's about a quarter less shimmer, and the rest pose comes out exactly as you painted it.</p>
+
+<p><strong>On twos</strong> is the classic: the clip holds each pose for two frames. It's set per clip.</p>
+
+<h2>Views and 8 directions</h2>
+
+<img src="../guide/directions.gif" alt="Importing the same animation in 8 directions and stepping through the eight clips">
+
+<p>The most upvoted comment on the Reddit post asked for 8 directions, so here they are. A rig can have as many painted views as you want, with your own names, and each clip picks which view it shows.</p>
+
+<ul>
+<li>Import 3D has Directions: this view, front and side, 4 or 8. You get one clip per direction, each pointing at the view with its name.</li>
+<li>The mirrored sides are the other side's clip flipped on export, like you'd do by hand, so painting one side covers both.</li>
+<li>Mirror on export works on any clip, not only imported ones.</li>
+</ul>
+
+<h2>3D rigs</h2>
+
+<img src="../guide/turn3d.gif" alt="Using the 3D template and dragging Turn so the camera goes all the way around the rig">
+
+<p>This one is for people who want every angle without painting every angle. Pick Use 3D template and the bones get depth. You turn the camera, the rig turns with it, and the export can go out in 4 or 8 real directions.</p>
+
+<ul>
+<li>Import 3D on a 3D rig keeps the motion in 3D instead of flattening it to one camera.</li>
+<li>Painting works as a strip wrapped around each bone: the middle is its front, the edges its back. An arm in front of the chest covers it pixel by pixel.</li>
+<li>Optional shading with three tones, light from the top left.</li>
+<li>Honest limits: no IK in 3D yet, and Pixel lock doesn't apply to wrapped paint.</li>
+</ul>
+
+<h2>Skeletons with odd names</h2>
+
+<img src="../devlog/03-bodypoints.gif" alt="A skeleton with joints named joint_001 to joint_054, read from its shape, then the hips, head, hands and feet marked by clicking on the 3D view">
+
+<p>Import 3D used to map bones by name, and a file with joints called joint_042 got you a list of dropdowns and a lot of guessing. Now when the names say nothing, Bonebase reads the skeleton's rest pose: where the feet touch the ground, where the legs meet, which way the toes point, how far the arms spread. I tested it by wiping the names off real files and comparing: on a Rigify metarig it lands on the same 16 bones as the names did.</p>
+
+<p>If it still guesses wrong, Mark by clicking asks for six points (hips, head, both hands, both feet) and you click them on the 3D view. The marking view looks from behind, so the character's left hand is on your left. Everything between the points is worked out for you.</p>
+
+<h2>Example characters</h2>
+
+<img src="../devlog/03-characters.png" alt="Five painted example characters standing side by side: Warden the knight, Shade the rogue, Ember the wizard, Brick the brawler and Fletch the archer">
+
+<p>The library is no longer empty. Warden, Shade, Ember, Brick and Fletch come with the extension, painted and ready to open in any sprite. They're there to poke at: open one, look at how the sheet is laid out, break it.</p>
+
+<p>I tried giving them a full set of clips, and most of them didn't look right, so they ship standing still. Except Brick, who keeps his run, because nobody could stop him.</p>
+
+<h2>A guide for everything</h2>
+
+<p>There's now a <a href="../guide/">guide</a> with a short GIF for every feature, from the first template to the export. Open the guide in the View and More tabs takes you there.</p>
+
+<h2>Fixes and smaller changes</h2>
+
+<ul>
+<li>A Thickness slider for the whole skin, from 25 to 300 %. It doesn't touch the bones, so going back to 100 % gives you exactly what you had.</li>
+<li>Show IK handles, to hide the IK handles when you only want to look.</li>
+<li>A new paint sheet no longer opens with a palette of 256 blacks. It takes your sprite's palette.</li>
+<li>Imported clips with a lunge or a deep bow no longer hide the head behind the torso.</li>
+<li>Over 20 bugs from a full review of 2.3 to 2.8, found before you found them. Mostly.</li>
+</ul>
+
+<hr>
+
+<h2>Roadmap</h2>
+
+<h3>Export for games</h3>
+
+<p>The paint sheet trick works in engines too: export the animation as a map of where each pixel comes from, plus the sheet, and swap skins at runtime. The data is already there. What's missing is the export and a small example shader for Godot and Unity.</p>
+
+<h3>Views per frame</h3>
+
+<p>One painted view per clip is great until a character turns its head halfway through. Picking a view per frame would cover that. It's an idea, not a design yet.</p>
+
+<h3>Animation library</h3>
+
+<p>Still the plan, still not done, and now you know why the example characters stand still. I'd rather ship a few clips that look right than a lot that don't.</p>
+
+<h3>Rigs from a silhouette</h3>
+
+<p>Still living in my notes. It keeps losing to features that were supposed to be small.</p>
+
+<hr>
+
+<p>If one of these matters more to you, or something you need is missing, tell me in the comments. The order can change. The thing you asked for loudest last time, 8 directions, is in this one.</p>
+
+<h2>More Aseprite extensions</h2>
+
+<ul>
+<li><a href="https://icemaan.itch.io/fastfx-full-particle-system-for-aseprite">FastFX Full</a>: multi-emitter particle FX, live preview and bake.</li>
+<li><a href="https://icemaan.itch.io/vesprite-vector-drawing-for-pixel-art-inside-aseprite">VeSprite</a>: vector drawing for pixel art inside Aseprite.</li>
+<li><a href="https://icemaan.itch.io/spaghetti-node-based-textures-for-aseprite">Spaghetti</a>: node-based textures for Aseprite.</li>
+<li><a href="https://icemaan.itch.io/ghostframe-aseprite-extension">GhostFrames</a>: RIFE frame interpolation for inbetweens.</li>
+</ul>
+
+</main>
+</body>
+</html>

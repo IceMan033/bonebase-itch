@@ -71,6 +71,7 @@ footer{max-width:1180px;margin:0 auto;padding:24px 20px 60px;color:var(--dim);bo
 <a href="#views">Views</a>
 <b>3D</b>
 <a href="#import3d">Import 3D</a>
+<a href="#bodypoints">Body points</a>
 <a href="#directions">Directions</a>
 <a href="#turn3d">3D rigs</a>
 <b>Workspace</b>
@@ -233,10 +234,21 @@ footer{max-width:1180px;margin:0 auto;padding:24px 20px 60px;color:var(--dim);bo
 <section class="f" id="import3d">
 <h3>Import 3D</h3>
 <img src="import3d.gif" alt="Opening a GLB attack animation, turning the import camera, and importing it onto the rig" loading="lazy">
-<p><span class="ui">Import 3D</span> in the Animation tab takes GLB, glTF and BVH files. You see the file's skeleton next to your rig, turn the camera to the angle you want to draw, and import it as a clip. Bones are mapped by name; you can fix any of them by hand.</p>
+<p><span class="ui">Import 3D</span> in the Animation tab takes GLB, glTF and BVH files. You see the file's skeleton next to your rig, turn the camera to the angle you want to draw, and import it as a clip. Bones are mapped by name, or by the body's shape when the names say nothing; you can fix any of them by hand.</p>
 <ul>
 <li>Mixamo gives you FBX: open it in Blender and export it as .glb.</li>
 <li><span class="ui">Import</span> can keep only the frames you mark and spread them over the length you pick.</li>
+</ul>
+</section>
+
+<section class="f" id="bodypoints">
+<h3>Body points</h3>
+<img src="bodypoints.gif" alt="A skeleton with joints named joint_001 to joint_054, read from its shape, then the hips, head, hands and feet marked by clicking on the 3D view" loading="lazy">
+<p>When the joint names mean nothing to Bonebase, it reads the skeleton's rest pose instead: hips, head, hands and feet, and the chains between them. If it guesses wrong, <span class="ui">Mark by clicking</span> asks for each point in turn and you click it on the 3D view.</p>
+<ul>
+<li>The marking view looks from behind, so the character's left hand is on your left. Drag to turn it.</li>
+<li><span class="ui">Skip</span> leaves a point to the guess, <span class="ui">Back</span> takes the last mark off, Esc stops.</li>
+<li><span class="ui">Forget marks</span> goes back to names or shape.</li>
 </ul>
 </section>
 
