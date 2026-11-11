@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bonebase guide</title>
+<meta name="description" content="Every Bonebase feature in a short GIF: rigs, skin, posing, animation, paint sheets, Import 3D and export, for Aseprite.">
+<style>
+:root{--bg:#131313;--panel:#1b1b1b;--line:#2c2c2c;--ink:#ececec;--dim:#a8a8a8;--gold:#ebcd5a;--blue:#78c8f0;--deep:#0d0d0d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+a{color:var(--gold)}
+header{max-width:1180px;margin:0 auto;padding:40px 20px 8px}
+header h1{margin:0;font-size:34px;letter-spacing:.5px}
+header h1 span{color:var(--gold)}
+header p{max-width:720px;color:var(--dim);margin:10px 0 0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px}
+nav{position:sticky;top:20px;align-self:start;max-height:calc(100vh - 40px);overflow:auto;padding:16px 0}
+nav b{display:block;color:var(--gold);font-size:12px;letter-spacing:1px;text-transform:uppercase;margin:16px 0 4px}
+nav a{display:block;color:var(--dim);text-decoration:none;font-size:14px;padding:2px 0}
+nav a:hover{color:var(--ink)}
+main h2{font-size:24px;margin:56px 0 4px;padding-top:8px;border-top:1px solid var(--line);color:var(--gold)}
+main h2:first-child{margin-top:16px}
+.lead{color:var(--dim);margin:0 0 8px}
+section.f{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px 20px 20px;margin:20px 0}
+section.f h3{margin:0 0 6px;font-size:19px}
+section.f p{margin:6px 0}
+section.f ul{margin:6px 0;padding-left:20px}
+section.f img{display:block;width:100%;height:auto;margin:12px 0 4px;border-radius:4px;image-rendering:pixelated;background:var(--deep)}
+kbd{background:var(--deep);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;font-size:13px}
+.ui{color:var(--gold);font-weight:600}
+footer{max-width:1180px;margin:0 auto;padding:24px 20px 60px;color:var(--dim);border-top:1px solid var(--line)}
+@media (max-width:860px){
+  .wrap{grid-template-columns:1fr;gap:0}
+  nav{position:static;max-height:none;display:flex;flex-wrap:wrap;gap:4px 14px;padding:8px 0 0}
+  nav b{width:100%;margin:10px 0 0}
+  header h1{font-size:28px}
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1><span>Bonebase</span> guide</h1>
+</header>
+
+<div class="wrap">
+<nav>
+<b>Start</b>
+<a href="#templates">Templates</a>
+<b>Build a rig</b>
+<a href="#mirror">Bones and Mirror</a>
+<a href="#radius">Radius</a>
+<a href="#bulge">Bulge</a>
+<a href="#thickness">Thickness</a>
+<a href="#groups">Groups</a>
+<b>Pose</b>
+<a href="#pose">Pose (FK)</a>
+<a href="#ik">Live IK</a>
+<b>Animate</b>
+<a href="#keys">Keys</a>
+<a href="#clips">Clips and timing</a>
+<a href="#twos">On twos</a>
+<a href="#pixellock">Pixel lock</a>
+<a href="#onion">Onion skin</a>
+<a href="#poses">Poses</a>
+<a href="#library">Rig library</a>
+<b>Paint</b>
+<a href="#paint">Paint sheet</a>
+<a href="#views">Views</a>
+<b>3D</b>
+<a href="#import3d">Import 3D</a>
+<a href="#directions">Directions</a>
+<a href="#turn3d">3D rigs</a>
+<b>Workspace</b>
+<a href="#reference">Reference images</a>
+<a href="#viewopts">View options</a>
+<b>Finish</b>
+<a href="#export">Export</a>
+</nav>
+
+<main>
+
+<h2>Start</h2>
+<p class="lead">Open a sprite, run Bonebase from File &gt; Scripts, and the window shows up with the Rig tab open.</p>
+
+<section class="f" id="templates">
+<h3>Templates</h3>
+<img src="templates.gif" alt="Picking Humanoid, Chibi, Profile, Quadruped, Winged and Serpent from the template list" loading="lazy">
+<p>Twenty ready rigs so you don't have to place a hip bone from zero: front and side humanoids, chibis, a quadruped, a winged one and a serpent. Pick one in <span class="ui">Template</span> and press <span class="ui">Use template</span>.</p>
+<p>The humanoids share bone names, so IK, Mirror and Import 3D behave the same on all of them.</p>
+</section>
+
+<h2>Build a rig</h2>
+<p class="lead">All of this happens in Rest mode, the pose your rig stands in before any animation.</p>
+
+<section class="f" id="mirror">
+<h3>Bones and Mirror</h3>
+<img src="mirror.gif" alt="Mirror ticked, then drawing the right arm and leg while the left ones appear on their own" loading="lazy">
+<p>The <span class="ui">Bone</span> tool draws a bone with one drag, from empty space, a joint or another bone. With <span class="ui">Mirror</span> on, everything you draw on one side shows up on the other.</p>
+<ul>
+<li>With <span class="ui">Select</span>, drag a tail to bend a bone, its body to swing or move it, and the pink ring to move the whole rig.</li>
+<li><span class="ui">Symmetrize</span> pairs up a rig you drew by hand.</li>
+</ul>
+</section>
+
+<section class="f" id="radius">
+<h3>Radius</h3>
+<img src="radius.gif" alt="Dragging out from the head, waist, hips and fist joints to make each one thicker" loading="lazy">
+<p>The skin wraps the bones like a soft envelope. The <span class="ui">Radius</span> tool sets how thick it is at each joint: drag out from a joint to grow it, in to shrink it.</p>
+</section>
+
+<section class="f" id="bulge">
+<h3>Bulge</h3>
+<img src="bulge.gif" alt="Pushing out bulges on a thigh, a calf and an upper arm, mirrored to the other side" loading="lazy">
+<p><span class="ui">Bulge</span> pushes the skin out anywhere along a bone, on either side. Thighs, calves, a belly, a big chin. Each bulge keeps a handle you can drag again (<kbd>Delete</kbd> removes it), and Mirror copies it to the twin bone.</p>
+</section>
+
+<section class="f" id="thickness">
+<h3>Thickness</h3>
+<img src="thickness.gif" alt="The Thickness slider making the whole skin fatter and thinner while the bones stay put" loading="lazy">
+<p>One slider in the Rig tab for the whole skin. The bones don't move, so your animation doesn't change. Handy when the rig is right but the character reads too skinny at small sizes.</p>
+</section>
+
+<section class="f" id="groups">
+<h3>Groups</h3>
+<img src="groups.gif" alt="Picking the right arm group, changing its colour, and setting its Order so it goes behind the body and back" loading="lazy">
+<p>Groups are the layers of the skin: which bones draw together, in which colour, and in what order. Each group becomes its own layer when you export.</p>
+<ul>
+<li><span class="ui">Order</span> in Rest is the default stacking. In Pose it's keyed per frame, so an arm can swing behind the body and come back.</li>
+<li><span class="ui">Blend</span> smooths the seam where bones of the same group meet.</li>
+<li>A bone in no group draws nothing, which is useful for helpers.</li>
+</ul>
+</section>
+
+<h2>Pose</h2>
+<p class="lead">Switch to Pose mode and every change becomes a key on the current frame.</p>
+
+<section class="f" id="pose">
+<h3>Pose (FK)</h3>
+<img src="pose.gif" alt="Turning the chest, head, upper arm and forearm by dragging them in Pose mode" loading="lazy">
+<p>The <span class="ui">Pose</span> tool turns a bone when you drag it, and everything below it follows. Drag the root, or a loose bone, to move it instead.</p>
+</section>
+
+<section class="f" id="ik">
+<h3>Live IK</h3>
+<img src="ik.gif" alt="Dragging a hand and a foot with IK, flipping a knee with its dummy, moving the hips while the feet stay planted" loading="lazy">
+<p>With the <span class="ui">IK</span> tool you grab a hand or a foot and pull; the arm or leg works out its own bend. The small dummies at elbows and knees decide which way they bend.</p>
+<ul>
+<li>Move the hips and the hands and feet stay where you left them.</li>
+<li>Turn on the <span class="ui">Ground</span> line and feet won't sink below it.</li>
+<li><span class="ui">IK on limbs</span> in the Rig tab sets it up on a rig you drew yourself.</li>
+</ul>
+</section>
+
+<h2>Animate</h2>
+<p class="lead">The timeline sits under the viewport: one row per bone, IK handle and group.</p>
+
+<section class="f" id="keys">
+<h3>Keys</h3>
+<img src="keys.gif" alt="Picking keys with click, Shift+click and a box, dragging them in time, Alt+dragging to scale their timing, and undoing" loading="lazy">
+<ul>
+<li>Click a key, <kbd>Shift</kbd>+click to add more, or drag a box.</li>
+<li>Drag them to move them in time. <kbd>Alt</kbd>+drag stretches or squeezes their timing.</li>
+<li><kbd>Ctrl</kbd>+<kbd>Z</kbd> undoes anything, keys included.</li>
+</ul>
+</section>
+
+<section class="f" id="clips">
+<h3>Clips and timing</h3>
+<img src="clips.gif" alt="Duplicating a clip, renaming it, slowing all its frames, holding one frame longer and turning on ping-pong" loading="lazy">
+<p>A rig holds as many clips as you need (idle, walk, attack...), and each one exports with its own tag.</p>
+<ul>
+<li><span class="ui">All frames</span> sets the speed of the whole clip, <span class="ui">This frame</span> holds just one longer.</li>
+<li><span class="ui">Ping-pong</span> plays there and back. <span class="ui">Ease</span> changes how keys blend.</li>
+</ul>
+</section>
+
+<section class="f" id="twos">
+<h3>On twos</h3>
+<img src="twos.gif" alt="A march cycle played smooth, then with On twos so each pose holds for two frames" loading="lazy">
+<p><span class="ui">On twos</span> holds every pose for two frames, the way a lot of hand-drawn animation is timed. It looks snappier and it's half the frames to clean up.</p>
+</section>
+
+<section class="f" id="pixellock">
+<h3>Pixel lock</h3>
+<img src="pixellock.gif" alt="A slow sway with Pixel lock off, where the outline shimmers, and at 3, where it moves in clean steps" loading="lazy">
+<p>When a bone turns a tiny bit, the outline gets redrawn a little differently every frame and the edges shimmer. <span class="ui">Pixel lock</span> makes each bone wait until it has really moved before the skin follows, so it steps the way you'd draw it. 2 is a good start, 0 turns it off.</p>
+</section>
+
+<section class="f" id="onion">
+<h3>Onion skin</h3>
+<img src="onion.gif" alt="Posing a walk frame by frame with the earlier frames shown as ghosts, then switching the onion styles" loading="lazy">
+<p>Shows the frames before and after the current one while you pose. Pick how many, their colours, and the style: tint, skin, bones or outline.</p>
+</section>
+
+<section class="f" id="poses">
+<h3>Poses</h3>
+<img src="poses.gif" alt="Saving three poses to the Poses tab and dropping two of them on other frames" loading="lazy">
+<p>Keep a pose you like and drop it on any frame later. <span class="ui">Apply mirrored</span> puts it on the other side, which makes the second half of a walk cycle almost free.</p>
+</section>
+
+<section class="f" id="library">
+<h3>Rig library</h3>
+<img src="library.gif" alt="Saving two rigs to the library, loading one, tweaking it and pressing Save rig" loading="lazy">
+<p>Your rigs, with their clips and poses, kept between sprites. Load one with a click, and <span class="ui">Save rig</span> keeps it up to date while you work.</p>
+</section>
+
+<h2>Paint</h2>
+<p class="lead">Instead of a flat coloured skin, paint the character once and let every frame wear it.</p>
+
+<section class="f" id="paint">
+<h3>Paint sheet</h3>
+<img src="paint.gif" alt="New view lays the rig flat on a sheet, the sheet opens in Aseprite, and painting a face, cap, tie and trousers updates the animated rig live" loading="lazy">
+<p><span class="ui">New view</span> lays every group of your rig flat on a sheet, and <span class="ui">Open sheet</span> opens it as a normal sprite in Aseprite. Paint on it with your own tools and palette; the rig picks it up as you go, even while the clip plays.</p>
+<ul>
+<li>The big window steps aside for a small one with the preview and the play buttons, so you have room to draw.</li>
+<li><span class="ui">Margin</span> leaves room to paint past the skin: hair, a cap's visor, a sword.</li>
+<li><span class="ui">Outline</span> and <span class="ui">Shading</span> can stay on top of your paint or go away.</li>
+</ul>
+</section>
+
+<section class="f" id="views">
+<h3>Views</h3>
+<img src="views.gif" alt="Two sheets, Front and Back, painted differently, and the clip switching between them while it plays" loading="lazy">
+<p>One sheet per view: a front, a back, an angry face, whatever you need. Name them yourself, and each clip picks the one it wears, or the plain skin.</p>
+</section>
+
+<h2>3D</h2>
+<p class="lead">Bring motion in from 3D files, or build the rig in 3D and pick the camera at the end.</p>
+
+<section class="f" id="import3d">
+<h3>Import 3D</h3>
+<img src="import3d.gif" alt="Opening a GLB attack animation, turning the import camera, and importing it onto the rig" loading="lazy">
+<p><span class="ui">Import 3D</span> in the Animation tab takes GLB, glTF and BVH files. You see the file's skeleton next to your rig, turn the camera to the angle you want to draw, and import it as a clip. Bones are mapped by name; you can fix any of them by hand.</p>
+<ul>
+<li>Mixamo gives you FBX: open it in Blender and export it as .glb.</li>
+<li><span class="ui">Import</span> can keep only the frames you mark and spread them over the length you pick.</li>
+</ul>
+</section>
+
+<section class="f" id="directions">
+<h3>Directions</h3>
+<img src="directions.gif" alt="Importing the same animation in 8 directions and stepping through the eight clips" loading="lazy">
+<p>Need the same move from every side? <span class="ui">Directions</span> imports it in 2, 4 or 8 directions at once, one clip each. The mirrored ones are flipped on export, so a side view only has to be painted once.</p>
+</section>
+
+<section class="f" id="turn3d">
+<h3>3D rigs</h3>
+<img src="turn3d.gif" alt="Using the 3D template and dragging Turn so the camera goes all the way around the rig" loading="lazy">
+<p><span class="ui">Use 3D template</span> or <span class="ui">New 3D rig</span> gives you a skeleton with depth. Animate it once, then <span class="ui">Turn</span> and <span class="ui">Tilt</span> the camera, and pick the directions to export.</p>
+</section>
+
+<h2>Workspace</h2>
+
+<section class="f" id="reference">
+<h3>Reference images</h3>
+<img src="reference.gif" alt="Loading a drawing under the rig, scaling it and lowering its opacity, then posing the legs on top of it" loading="lazy">
+<p>Load a drawing, a photo or another sprite under the rig and build or pose on top of it. Position, scale, rotation and opacity can be keyed per frame. It's saved with the sprite and never exported, so your messy sketches stay between us.</p>
+</section>
+
+<section class="f" id="viewopts">
+<h3>View options</h3>
+<img src="viewopts.gif" alt="Hiding the bones and IK handles, then the skin, changing the outline style and the background" loading="lazy">
+<p>The <span class="ui">View</span> tab decides what you see while you work: the skin, the bones, the IK handles, the outline style, the fill opacity and what's behind the rig (checker, a colour, your sprite or one of its layers).</p>
+</section>
+
+<h2>Finish</h2>
+
+<section class="f" id="export">
+<h3>Export</h3>
+<img src="export.gif" alt="Export sprite turning the rig into Aseprite layers, one per group, with a tag per clip" loading="lazy">
+<p><span class="ui">Export sprite</span> writes the animation into your sprite: one layer per group, one frame per frame, one tag per clip, inside a Bonebase group under your own layers. From there they're plain Aseprite frames. Draw over them, clean them up, export your sheet as usual.</p>
+<p><span class="ui">Lock layers</span> keeps the exported layers from being edited by accident.</p>
+</section>
+
+</main>
+</div>
+
+<footer>
+Bonebase is made by icemaan. Get it on <a href="https://icemaan.itch.io/">itch.io</a>. If something in here is wrong or confusing, tell me in the comments there and I'll fix the guide.
+</footer>
+
+</body>
+</html>

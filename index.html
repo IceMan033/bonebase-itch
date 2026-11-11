@@ -18,64 +18,94 @@ code{background:#141418;padding:1px 5px;border-radius:3px}
 <main>
 <img src="img/cover.png" alt="Bonebase: rig it, skin it, animate it. A pixel art character base with its bones drawn over it">
 
-<p><strong>Bonebase is an extension for Aseprite.</strong> You build a 2D skeleton, cover it with a skin you shape by hand, animate it with live IK, and export it to your sprite as one layer per part. Then you draw your character on top, frame by frame, over a body that already moves right.</p>
+<p><strong>Bonebase is an extension for Aseprite.</strong> I can draw a character once, but every time I tried to animate one, its arms changed length every frame and by frame 8 it was a different person. So I built the tool that does the part I'm bad at. You build a 2D skeleton, give it a rough body, animate it with live IK, and export it to your sprite as one layer per group. Then you draw your character on top, frame by frame, over a body that already moves right.</p>
 
 <img src="gifs/editor.gif" alt="The Bonebase viewport playing a march cycle: the skin, its bones, the hand and foot dummies and the ground line">
 
 <hr>
 
-<h2>Rig it</h2>
+<h2>Templates</h2>
 
-<img src="gifs/feature-templates.gif" alt="Picking the Humanoid, Chibi, Quadruped, Winged and Serpent templates one after another">
+<img src="devlog/02-templates.gif" alt="The template list going through stocky, tall, brute and child humanoids, side views and chibis">
+
+<p>Twenty starting points, so nobody has to place a hip bone from zero. Humanoids from the front (stocky, tall and slim, narrow waist, brute, child), side views (including a hunched one), chibis from two heads tall to round, a quadruped, a winged one and a serpent. The humanoids share bone names, so IK, mirror and Import 3D behave the same on all of them.</p>
 
 <ul>
-<li>Start from a template (Humanoid, Chibi, Quadruped, Winged, Serpent) or draw bones from scratch.</li>
-<li>Mirror mode builds the left side while you work on the right one. Symmetrize pairs a rig you made by hand.</li>
+<li>Or draw bones from scratch. Mirror mode builds the other side while you work on one; Symmetrize pairs a rig you made by hand.</li>
 <li>Bones can hang connected or loose: a tail, a cape, a floating head.</li>
+<li>A working canvas bigger than your sprite, with a checker, a color, your sprite or one of its layers behind the rig.</li>
 </ul>
 
-<h2>Skin it</h2>
+<h2>Skin</h2>
 
 <img src="gifs/feature-rig.gif" alt="Drawing bones with mirror on, making the head bigger with the Radius tool and pushing out a belly and a calf with the Bulge tool">
 
 <ul>
-<li>The skin wraps the bones like a modelling envelope. Set the radius at each joint, and push bulges out on either side of a bone for a belly, a calf or a muscle.</li>
-<li>Bones belong to parts (arm, leg, torso...). Each part becomes one layer, with its own colour and a smooth blend where its bones meet.</li>
-<li>Pixel-perfect outline, thick outline, or none.</li>
+<li>The skin wraps the bones like a modelling envelope. Set the radius at each joint and push bulges out on either side of a bone: a belly, a calf, a muscle.</li>
+<li>Groups decide which bones go on which layer (arm, leg, torso...), each with its own color and a smooth blend where its bones meet. A bone can be in no group at all, for helpers that shouldn't draw.</li>
+<li>Pixel perfect outline, thick outline, or none.</li>
 </ul>
 
-<h2>Animate it</h2>
+<h2>Reference images</h2>
+
+<p>Load a drawing, a photo or another sprite under the rig (from a file, the clipboard or any open sprite) and build or pose the skeleton on top of it. Basically tracing, but the skeleton does the homework. Position, scale, rotation and opacity can be keyed, or you can put a different picture on single frames to match your key poses. It's saved in the sprite and never exported, so your messy sketches stay between us.</p>
+
+<h2>Animation and IK</h2>
 
 <img src="gifs/feature-ik.gif" alt="Dragging a hand and a foot with live IK, flipping the knee with its pole dummy, moving the hips while the feet stay planted, and a foot stopping at the ground line">
 
 <ul>
-<li>Pose mode with auto-key: drag a bone and the key is written on the current frame.</li>
-<li>Live two-bone IK on arms and legs. Drag the hand or foot dummy, pick the elbow or knee side with its pole. Feet stay planted when the hips move, between keys too. Stretch is optional and capped.</li>
+<li>Pose mode with auto key: drag a bone and the key goes on the current frame.</li>
+<li>Live two bone IK on arms and legs. Drag the hand or foot, pick the elbow or knee side with its pole. Feet stay planted when the hips move, between keys too.</li>
+<li>A root ring carries the whole rig. Alt+click moves only the ring, for when it ended up somewhere silly.</li>
 <li>A ground line that feet stop at.</li>
-<li>Channels for rotation, offset and length (squash and stretch), and per part draw order and visibility.</li>
+<li>Channels for rotation, offset and length (squash and stretch), plus draw order and visibility per group, keyed per frame.</li>
 <li>Eases: Linear, Ease, Ease in, Ease out, Back, Bounce, Step.</li>
 </ul>
 
 <img src="gifs/feature-dopesheet.gif" alt="Playing the animation, then picking keys in the dope sheet with click, Shift+click and a box, dragging them, scaling their timing with Alt+drag and undoing">
 
 <ul>
-<li>A dope sheet with a row per bone, IK controller and part. Pick keys, drag them, scale their timing, copy and paste them.</li>
-<li>Copy a pose and paste it mirrored: a left step becomes a right step.</li>
+<li>A dope sheet with a row per bone, IK controller and group. Pick keys, drag them, scale their timing, copy and paste them.</li>
+<li>Copy a pose and paste it mirrored: a left step becomes a right step, front or side view.</li>
+<li>Several clips per rig (idle, walk, attack...), each with its own frames and timing. Holds, ping-pong, reverse keys.</li>
 </ul>
 
-<img src="gifs/feature-clips.gif" alt="Duplicating a clip and renaming it, switching clips, then turning on ping-pong, a frame hold and onion skin while it plays">
+<h2>Onion skin</h2>
+
+<img src="devlog/02-onion.gif" alt="A side view rig posed frame by frame with IK, the earlier frames showing as outlined ghosts, then switching between tint, skin and bones styles">
+
+<p>How many frames back and forward, keyframes only or every N frames, a color for each side, opacity and fade, and the style: tint, outline, skin or just the bones. It wraps around the loop too, so frame 1 can see frame 8 coming.</p>
+
+<h2>Import 3D and retargeting</h2>
+
+<img src="devlog/02-import3d.gif" alt="The Import 3D window: a 3D walk skeleton on the left, the Bonebase rig copying it on the right, a few frames marked on the timeline and the result playing as a new clip">
+
+<p>Open a GLB, glTF or BVH file, turn the camera to the side you want, and your 2D rig copies the 3D motion, bone by bone. Or let Bonebase build a new rig from the file's skeleton, groups included.</p>
+
+<p><strong>Yes, Mixamo works.</strong> Its skeleton is recognised on its own, so a Mixamo walk, run or punch lands on any humanoid template (front, side or chibi) or on your own rig with the same bone names, no mapping by hand. One step first: Mixamo hands you an FBX, so open it in Blender and export it as .glb. If your bones are named differently, you pick which joint drives each bone once and that's it.</p>
 
 <ul>
-<li>Several clips per rig (idle, walk, attack...), each with its own frames and timing.</li>
-<li>Per-frame holds, ping-pong, reverse keys, onion skin.</li>
+<li>In place keeps the character on the spot, so a walk that wanders off doesn't take your rig with it.</li>
+<li>Depth order swaps which arm or leg goes in front when the body turns.</li>
+<li>Marked frames: Shift+click the frames you actually like, pick how long the clip should be, and you get a clip with keys only on those frames. A long mocap walk becomes a short pixel art walk, which is what we wanted all along.</li>
 </ul>
 
-<h2>Draw over it</h2>
+<h2>Pose library and rig library</h2>
+
+<img src="devlog/02-poses.gif" alt="The Poses tab: the rig posed with IK and kept as three poses, stand, step and cheer, then dropped on other frames; then the Library tab saving two rigs and loading one back">
+
+<ul>
+<li>Poses: keep poses of a rig with thumbnails and drop one on any frame, mirrored if you want the other leg, or only on the bones you selected.</li>
+<li>Library: keep whole rigs, with all their clips and poses, and open them in any sprite. Save rig keeps the library copy up to date with one click, instead of saving over the same name every time like I used to.</li>
+</ul>
+
+<h2>Export</h2>
 
 <img src="gifs/skin.gif" alt="The exported skin alone, marching in place: what lands in your sprite">
 
 <ul>
-<li><strong>Export sprite</strong> adds a <code>Bonebase</code> group at the bottom of your layers: one locked layer per part, one frame per animation frame, a tag per clip.</li>
+<li><strong>Export sprite</strong> adds a <code>Bonebase</code> group at the bottom of your layers: one locked layer per group, one frame per animation frame, a tag per clip.</li>
 <li>Re-export any time. Only Bonebase's own layers are rebuilt; your drawing is never touched.</li>
 <li>The rig is saved inside the sprite. Open Bonebase on it again and everything comes back.</li>
 </ul>
@@ -89,13 +119,13 @@ code{background:#141418;padding:1px 5px;border-radius:3px}
 <ul>
 <li>One window inside Aseprite, with undo for every change and a shortcut list (press <code>?</code>).</li>
 <li>Aseprite 1.3 or newer, RGB sprites. Windows, macOS and Linux.</li>
-<li>Per-frame draw order uses Aseprite's cel z-index (1.3 and newer).</li>
+<li>Per frame draw order uses Aseprite's cel z-index (1.3 and newer).</li>
 </ul>
 
 <h2>Install</h2>
 
 <ol>
-<li>Download <code>Bonebase-1.0.0.aseprite-extension</code>.</li>
+<li>Download the <code>.aseprite-extension</code> file.</li>
 <li>Double-click it, or in Aseprite: Edit &gt; Preferences &gt; Extensions &gt; Add Extension.</li>
 <li>Open it from File &gt; Scripts &gt; Bonebase.</li>
 </ol>
@@ -107,11 +137,13 @@ code{background:#141418;padding:1px 5px;border-radius:3px}
 <ul>
 <li>Use it in any project: personal, commercial, client work, games and assets you sell.</li>
 <li>What you draw and export with it is yours. No attribution required.</li>
-<li>Every update in the 1.x line is included.</li>
+<li>Every update is included.</li>
 <li>Do not share, resell or redistribute the extension. A studio buys one per artist.</li>
 </ul>
 
 <hr>
+
+<p>Something missing, or something that should work differently? Tell me in the comments. Your ideas are probably better than my knees.</p>
 
 <h2>More Aseprite extensions</h2>
 
